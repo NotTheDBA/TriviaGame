@@ -1,0 +1,139 @@
+/************************
+    Clear defaults.
+*************************/
+
+@import 'reset.css';
+
+/************************
+    Colors
+*************************/
+
+body,
+article,
+.content {
+    background: #777777;
+    color: #ebebeb;
+}
+
+header,
+nav,
+section,
+aside,
+footer,
+div,
+h1,
+h2,
+h3,
+p {
+    background: #ebebeb;
+    color: #777777;
+}
+
+
+/************************
+    Fonts
+*************************/
+
+body {
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 18px;
+}
+
+h1,
+h2,
+h3 {
+    font-size: 18px;
+    display: inline;
+}
+
+
+/************************
+    Sizing
+*************************/
+
+header,
+nav,
+footer,
+.content {
+    width: 960px;
+}
+
+section {
+    width: 495px;
+}
+
+aside {
+    width: 405px;
+}
+
+.content {
+    height: 300px;
+}
+
+section,
+aside {
+    height: 245px;
+}
+
+
+/************************
+    Layout
+*************************/
+
+header,
+nav,
+footer,
+section,
+aside,
+.content {
+    text-align: center;
+}
+
+header,
+nav,
+footer {
+    margin: 10px auto;
+    padding: 35px 0;
+}
+
+.content {
+    margin: 20px auto;
+    padding: 0;
+}
+
+section,
+aside {
+    padding: 30px 10px;
+}
+
+section {
+    float: left;
+    margin-left: 0;
+}
+
+aside {
+    float: right;
+    margin-right: 0;
+}
+
+article {
+    margin: 30px auto;
+    padding: 15px;
+}
+
+div,
+p {
+    padding: 20px;
+}
+
+p {
+    margin: 10px auto;
+}
+
+div {
+    margin: 5px auto;
+}
+
+.clear {
+    clear: both;
+}
