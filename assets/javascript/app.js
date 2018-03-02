@@ -45,13 +45,64 @@ var data = {
 
 
 var count = Object.keys(data.trivia).length;
-var trivia;
+var trivia, answers;
+var answered = false;
+var correct = null;
+var playerAnswer = -1;
+var quizNo = -1;
 
 $(document).ready(function() {
 
-    console.log(count);
+    quizNo = 1; // get random quiz item
 
-    console.log(data.trivia[1].fact);
+    setQuestion(quizNo, data.trivia[quizNo]);
 
+    if (playerAnswer === data.trivia[quizNo].answer) {
+        answered = true;
+        correct = true;
+    }
+
+    if (answered) {
+        $("#fun-fact").html("<p>" + data.trivia[quizNo].fact + "</p>")
+    }
 
 });
+
+function setQuestion(quizNo, trivia) {
+    console.log(quizNo);
+    console.log(trivia.fact);
+
+    $("#question").html("<p>" + trivia.question + "</p>")
+    setChoices(quizNo, data.trivia[quizNo].choices);
+
+
+}
+
+function setChoices(id, choices) {
+
+    var row = $("<tr>");
+
+    for (i = 0; i < choices.length; i++) {
+        var triviaChoice = "<input type='radio' name='" + id + "' value='" + i + "'> " + choices[i] + "";
+
+        var item = $("<td>");
+
+        item.append(triviaChoice);
+        row.append(item);
+    }
+
+    var table = $("<table>");
+    table.append(row);
+
+    var button = $("<button>");
+    button.text("Answer");
+    button.id = "submit";
+
+    var form = $("<form>");
+    form.append(table);
+    form.append(button);
+
+    $("#choices").append(form);
+
+
+}
