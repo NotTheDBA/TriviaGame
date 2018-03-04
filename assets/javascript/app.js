@@ -22,30 +22,63 @@ $(document).ready(function() {
 
         setQuestion(quizNo, data.trivia[quizNo]);
 
-        if (playerAnswer === data.trivia[quizNo].answer) {
-            answered = true;
-            correct = true;
-        }
-
-        if (answered) {
-            $("#fun-fact").html("<p>" + data.trivia[quizNo].fact + "</p>")
-        }
+        setChoices(quizNo, data.trivia[quizNo]);
 
     });
 
 });
 
-function setQuestion(quizNo, trivia) {
-    console.log(quizNo);
-    console.log(trivia.fact);
+function checkAnswer(playerAnswer, answer) {
 
-    $("#question").html("<p>" + trivia.question + "</p>")
-    setChoices(quizNo, trivia.choices);
-
+    debugger;
+    answered = true;
+    if (playerAnswer === data.trivia[quizNo].answer) {
+        correct = true;
+    }
+    if (answered) {
+        $("#fun-fact").html("<p>" + data.trivia[quizNo].fact + "</p>")
+    }
 
 }
 
-function setChoices(id, choices) {
+function setQuestion(quizNo, trivia) {
+
+    $("#question").html("<p>" + trivia.question + "</p>")
+
+}
+
+
+function setChoices(quizNo, trivia) {
+
+
+    var table = $("<table>");
+    table.append(makeChoices(quizNo, trivia.choices));
+
+    var button = $("<button>");
+    button.text("Answer");
+    button.id = "submit";
+    button.on("click", function() {
+        var playerAnswer = $("input[name='" + quizNo + "']:checked").val();
+        if (typeof playerAnswer !== 'undefined') {
+            console.log(playerAnswer);
+            debugger;
+            checkAnswer(playerAnswer, trivia)
+        } else {
+            console.log("Nope.")
+            debugger;
+        }
+
+    });
+
+    var form = $("<form>");
+    form.append(table);
+    form.append(button);
+
+    $("#choices").append(form);
+
+}
+
+function makeChoices(id, choices) {
 
     var row = $("<tr>");
 
@@ -58,18 +91,5 @@ function setChoices(id, choices) {
         row.append(item);
     }
 
-    var table = $("<table>");
-    table.append(row);
-
-    var button = $("<button>");
-    button.text("Answer");
-    button.id = "submit";
-
-    var form = $("<form>");
-    form.append(table);
-    form.append(button);
-
-    $("#choices").append(form);
-
-
+    return row;
 }

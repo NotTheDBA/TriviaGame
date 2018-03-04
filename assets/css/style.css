@@ -72,7 +72,8 @@ aside {
 
 section,
 aside {
-    height: 245px;
+    /* height: 245px; */
+    height: fit-content;
 }
 
 
@@ -109,11 +110,13 @@ aside {
 section {
     float: left;
     margin-left: 0;
+    margin-bottom: 20px;
 }
 
 aside {
     float: right;
     margin-right: 0;
+    margin-bottom: 20px;
 }
 
 article {
