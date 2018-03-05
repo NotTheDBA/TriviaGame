@@ -1,12 +1,18 @@
 var numCorrect = 0;
+var count = -1;
+quizNo = -1;
+var seenQuestions = [];
+
+//TODO: is the count sometimes dropping too early?
+//TODO: add timer, pause and start function.
+//TODO: add final scoring at end of game.
+//TODO: re-add new play button at end of game.
 $(document).ready(function() {
     var trivia, answers;
     // var answered = false;
     // var correct = null;
     var playerAnswer = -1;
     var quizNo = -1;
-
-    var count = 0;
 
     playButton(newGame = true);
 });
@@ -20,13 +26,22 @@ function getQuestion() {
         dataType: 'json',
         method: "GET"
     }).then(function(data) {
+        if (count === 0) {
+            return; // game over
+        }
+        if (count === -1) {
+            count = Object.keys(data.trivia).length;
+        }
 
-        count = Object.keys(data.trivia).length;
-        quizNo = 1; // TODO get random quiz item
-
+        while (quizNo === -1 || seenQuestions.indexOf(quizNo) > -1) {
+            quizNo = Math.floor(Math.random() * count)
+        }
+        count--;
+        console.log(count + ":" + quizNo);
+        // debugger;
         $("#question").html("<p>" + data.trivia[quizNo].question + "</p>")
-
         showQuestion(quizNo, data.trivia[quizNo]);
+
 
     });
 
@@ -62,7 +77,6 @@ function checkAnswer(playerAnswer, trivia) {
 
 }
 
-
 function showQuestion(quizNo, trivia) {
 
     var table = $("<table>");
@@ -80,6 +94,7 @@ function showQuestion(quizNo, trivia) {
 
     $("#answer").empty().append(table).append(button);
 
+    seenQuestions.push(quizNo);
 }
 
 function buildChoices(id, choices) {
