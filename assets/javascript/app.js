@@ -1,6 +1,5 @@
-var numCorrect = 0;
-var count = -1;
-quizNo = -1;
+//establish variables; values set later
+var numCorrect, quizNo, count;
 var seenQuestions = [];
 var data;
 // data format:
@@ -21,6 +20,7 @@ $(document).ready(function() {
     var playerAnswer = -1;
     var quizNo = -1;
     getTrivia();
+    setupGame();
 
 
 });
@@ -35,16 +35,22 @@ function getTrivia() {
     }).then(function(jsonData) {
         //put this in our global space
         window.data = jsonData;
-        //start game
-        playButton(newGame = true);
     });
 
+}
+
+function setupGame() {
+    seenQuestions = [];
+    numCorrect = 0;
+    count = -1;
+    quizNo = -1;
+    playButton(newGame = true);
 }
 
 function gameOver() {
 
     //game over - re-set game
-    playButton(newGame = true);
+    setupGame();
 }
 
 function clearScreen() {
@@ -104,11 +110,10 @@ function checkAnswer(playerAnswer, trivia) {
 function showChoices(quizNo, trivia) {
 
     var table = $("<table>");
-    table.append(makeChoices(quizNo, trivia.choices));
+    table.append(buildChoices(quizNo, trivia.choices));
 
-    var button = $("<button>");
-    button.text("Answer");
-    button.id = "submit";
+    var button = $("<button>").text("Answer");
+    // button.id("submit");
     button.on("click", function() {
         var playerAnswer = $("input[name='" + quizNo + "']:checked").val();
         if (typeof playerAnswer !== 'undefined') {
@@ -121,7 +126,7 @@ function showChoices(quizNo, trivia) {
     seenQuestions.push(quizNo);
 }
 
-function makeChoices(id, choices) {
+function buildChoices(id, choices) {
 
     var row = $("<tr>");
 
