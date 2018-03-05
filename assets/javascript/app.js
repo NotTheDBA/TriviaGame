@@ -1,7 +1,3 @@
-//establish variables; values set later
-var numCorrect, quizNo, count;
-var seenQuestions = [];
-var data;
 // data format:
 //         "999": {
 //             "question": "Freebie:  The answer is zero.",
@@ -10,30 +6,30 @@ var data;
 //             "fact": "Freebies are fun!"
 //         }
 
-//TODO: Add timer, pause and start function.
-//TODO: Add final scoring at end of game.
-//TODO: fix re-play button at end of game.
 $(document).ready(function() {
-    var answers;
-    // var answered = false;
-    // var correct = null;
+    var count, numCorrect;
+    //establish variables; values set later
+    var seenQuestions = [];
+    var data;
+
     var playerAnswer = -1;
     var quizNo = -1;
     getTrivia();
+
     setupGame();
 
 
 });
 
 function getTrivia() {
-
+    // Only needs to run once on load.
     var queryurl = "assets/data/trivia.json";
     $.ajax({
         url: queryurl,
         dataType: 'json',
         method: "GET"
     }).then(function(jsonData) {
-        //put this in our global space
+        //puts the data in our global space
         window.data = jsonData;
     });
 
@@ -48,6 +44,7 @@ function setupGame() {
 }
 
 function gameOver() {
+    console.log(numCorrect);
 
     //game over - re-set game
     setupGame();
@@ -69,6 +66,7 @@ function getQuestion() {
         count = Object.keys(data.trivia).length;
     }
 
+    //Possible optimization:  Find a way to eliminate repeated index values in the random choice.
     while (quizNo === -1 || seenQuestions.indexOf(quizNo) > -1) {
         quizNo = Math.floor(Math.random() * count)
     }
@@ -107,15 +105,15 @@ function checkAnswer(playerAnswer, trivia) {
 
 }
 
-function showChoices(quizNo, trivia) {
+function showChoices(triviaID, trivia) {
 
     var table = $("<table>");
-    table.append(buildChoices(quizNo, trivia.choices));
+    table.append(buildChoices(triviaID, trivia.choices));
 
     var button = $("<button>").text("Answer");
     // button.id("submit");
     button.on("click", function() {
-        var playerAnswer = $("input[name='" + quizNo + "']:checked").val();
+        var playerAnswer = $("input[name='" + triviaID + "']:checked").val();
         if (typeof playerAnswer !== 'undefined') {
             checkAnswer(playerAnswer, trivia)
         }
@@ -123,7 +121,7 @@ function showChoices(quizNo, trivia) {
 
     $("#answer").append(table).append(button);
 
-    seenQuestions.push(quizNo);
+    seenQuestions.push(triviaID);
 }
 
 function buildChoices(id, choices) {
