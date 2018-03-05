@@ -1,8 +1,7 @@
-#Trivia Quiz
+# Trivia Quiz
 This is a jQuery/JavaScript based timed trivia game.  Trivia data is stored in a JSON file.
 
 ## TODO:
-* Add timer, pause and start function.
 * Add final scoring at end of game.
 * Make radio button text clickable.
 * Make radio choice the 'answer' click event, instead of separate button.

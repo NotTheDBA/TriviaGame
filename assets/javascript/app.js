@@ -6,14 +6,13 @@
 //             "fact": "Freebies are fun!"
 //         }
 
+// var clockRunning = false;
 $(document).ready(function() {
-    var count, numCorrect;
-    //establish variables; values set later
-    var seenQuestions = [];
-    var data;
+    //game variables; values set later
+    // var triviaData, questionsCount, questionsSeen, correctGuesses;
 
-    var playerAnswer = -1;
-    var quizNo = -1;
+    // var playerAnswer = -1;
+    // var quizNo = -1;
     getTrivia();
 
     setupGame();
@@ -40,12 +39,13 @@ function setupGame() {
     numCorrect = 0;
     count = -1;
     quizNo = -1;
-    playButton(newGame = true);
+    stopwatch.reset();
+    playButton("Play");
 }
 
 function gameOver() {
     console.log(numCorrect);
-
+    console.log(stopwatch.time);
     //game over - re-set game
     setupGame();
 }
@@ -72,17 +72,13 @@ function getQuestion() {
     }
     $("#question").html("<p>" + data.trivia[quizNo].question + "</p>")
     showChoices(quizNo, data.trivia[quizNo]);
+    stopwatch.start();
 
 }
 
-function playButton(newGame) {
+function playButton(label) {
 
-    var button = $("<button>");
-    if (newGame === true) {
-        button.text("Play");
-    } else {
-        button.text("Next");
-    }
+    var button = $("<button>").text(label);
     button.on("click", function() {
         getQuestion();
     });
@@ -91,17 +87,17 @@ function playButton(newGame) {
 }
 
 function checkAnswer(playerAnswer, trivia) {
-
+    stopwatch.stop();
     if (playerAnswer == trivia.answer) {
         numCorrect++;
         $("#answer").html("<p>Correct! '" + trivia.choices[trivia.answer] + "' is the answer!</p>")
     } else {
 
         $("#answer").html("<p>Sorry... the correct answer was:" + trivia.choices[trivia.answer] + "</p>")
-    }
-    playButton(newGame = false);
-    $("#fun-fact").html("<p>" + trivia.fact + "</p>")
 
+    }
+    playButton("Next");
+    $("#fun-fact").html("<p>" + trivia.fact + "</p>")
 
 }
 
@@ -111,7 +107,6 @@ function showChoices(triviaID, trivia) {
     table.append(buildChoices(triviaID, trivia.choices));
 
     var button = $("<button>").text("Answer");
-    // button.id("submit");
     button.on("click", function() {
         var playerAnswer = $("input[name='" + triviaID + "']:checked").val();
         if (typeof playerAnswer !== 'undefined') {
@@ -139,3 +134,62 @@ function buildChoices(id, choices) {
 
     return row;
 }
+
+const SECONDS_BY_MILLISECOND = 1000;
+const MINUTES_BY_SECOND = 60;
+//  Our stopwatch object.
+var stopwatch = {
+    time: 0, //Two minute countdown 
+    lap: 1,
+    laptime: 0,
+    clockRunning: false,
+    timerID: null,
+
+    reset: function() {
+
+        clockRunning = false;
+
+        // two minute warning
+        stopwatch.time = 2 * MINUTES_BY_SECOND;
+        stopwatch.displayTime(stopwatch.time);
+    },
+
+    start: function() {
+
+        if (!stopwatch.clockRunning) {
+            timerID = setInterval(stopwatch.count, 1 * SECONDS_BY_MILLISECOND);
+        }
+
+        clockRunning = true;
+        stopwatch.count();
+    },
+
+    stop: function() {
+        clearInterval(timerID);
+    },
+
+    count: function() {
+        // decrement time
+        stopwatch.time--;
+        stopwatch.displayTime(stopwatch.time);
+    },
+
+    displayTime: function(time) {
+
+        //  Takes the current time in seconds and convert it to minutes and seconds (mm:ss).
+        var minutes = Math.floor(time / 60);
+        var seconds = time - (minutes * 60);
+
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+
+        if (minutes === 0) {
+            minutes = "00";
+        } else if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+
+        $("#timer").text(minutes + ":" + seconds);
+    }
+};
