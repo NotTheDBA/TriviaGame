@@ -2,48 +2,72 @@ var numCorrect = 0;
 var count = -1;
 quizNo = -1;
 var seenQuestions = [];
+var data;
+// data format:
+//         "999": {
+//             "question": "Freebie:  The answer is zero.",
+//             "choices": ["0", "1", "2", "3"],
+//             "answer": 0,
+//             "fact": "Freebies are fun!"
+//         }
 
-//TODO: is the count sometimes dropping too early?
-//TODO: add timer, pause and start function.
-//TODO: add final scoring at end of game.
-//TODO: re-add new play button at end of game.
+//TODO: Add timer, pause and start function.
+//TODO: Add final scoring at end of game.
+//TODO: fix re-play button at end of game.
 $(document).ready(function() {
-    var trivia, answers;
+    var answers;
     // var answered = false;
     // var correct = null;
     var playerAnswer = -1;
     var quizNo = -1;
+    getTrivia();
 
-    playButton(newGame = true);
+
 });
 
-function getQuestion() {
-    $("#answer").empty();
-    $("#fun-fact").empty();
+function getTrivia() {
+
     var queryurl = "assets/data/trivia.json";
     $.ajax({
         url: queryurl,
         dataType: 'json',
         method: "GET"
-    }).then(function(data) {
-        if (count === 0) {
-            return; // game over
-        }
-        if (count === -1) {
-            count = Object.keys(data.trivia).length;
-        }
-
-        while (quizNo === -1 || seenQuestions.indexOf(quizNo) > -1) {
-            quizNo = Math.floor(Math.random() * count)
-        }
-        count--;
-        console.log(count + ":" + quizNo);
-        // debugger;
-        $("#question").html("<p>" + data.trivia[quizNo].question + "</p>")
-        showQuestion(quizNo, data.trivia[quizNo]);
-
-
+    }).then(function(jsonData) {
+        //put this in our global space
+        window.data = jsonData;
+        //start game
+        playButton(newGame = true);
     });
+
+}
+
+function gameOver() {
+
+    //game over - re-set game
+    playButton(newGame = true);
+}
+
+function clearScreen() {
+    $("#answer").empty();
+    $("#fun-fact").empty();
+    $("#question").empty();
+}
+
+function getQuestion() {
+    clearScreen();
+    if (count === seenQuestions.length) {
+        gameOver()
+        return;
+    }
+    if (count === -1) {
+        count = Object.keys(data.trivia).length;
+    }
+
+    while (quizNo === -1 || seenQuestions.indexOf(quizNo) > -1) {
+        quizNo = Math.floor(Math.random() * count)
+    }
+    $("#question").html("<p>" + data.trivia[quizNo].question + "</p>")
+    showChoices(quizNo, data.trivia[quizNo]);
 
 }
 
@@ -77,10 +101,10 @@ function checkAnswer(playerAnswer, trivia) {
 
 }
 
-function showQuestion(quizNo, trivia) {
+function showChoices(quizNo, trivia) {
 
     var table = $("<table>");
-    table.append(buildChoices(quizNo, trivia.choices));
+    table.append(makeChoices(quizNo, trivia.choices));
 
     var button = $("<button>");
     button.text("Answer");
@@ -92,12 +116,12 @@ function showQuestion(quizNo, trivia) {
         }
     });
 
-    $("#answer").empty().append(table).append(button);
+    $("#answer").append(table).append(button);
 
     seenQuestions.push(quizNo);
 }
 
-function buildChoices(id, choices) {
+function makeChoices(id, choices) {
 
     var row = $("<tr>");
 

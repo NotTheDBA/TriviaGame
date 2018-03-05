@@ -33,12 +33,6 @@
             "choices": ["Seasons", "7 Wonders", "Dominion", "Button Men"],
             "answer": 0,
             "fact": "In Seasons, the first player rolls a number of dice.  Each player in turn then selects one of the rolled values, and passes the rest of the dice along to the next player.  This is known as dice drafting."
-        },
-        "999": {
-            "question": "Freebie:  The answer is zero.",
-            "choices": ["0", "1", "2", "3"],
-            "answer": 0,
-            "fact": "Freebies are fun!"
         }
     }
 }
