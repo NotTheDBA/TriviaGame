@@ -12,15 +12,10 @@ $(document).ready(function() {
         method: "GET"
     }).then(function(data) {
 
-        var count = Object.keys(data).length;
+        var count = Object.keys(data.trivia).length;
         quizNo = 1; // TODO get random quiz item
 
-        // console.log(data);0
-        // console.log(data.trivia[quizNo].question);
-        // console.log(quizNo);
-        // console.log(data.trivia[quizNo].fact);
-
-        setQuestion(quizNo, data.trivia[quizNo]);
+        $("#question").html("<p>" + data.trivia[quizNo].question + "</p>")
 
         setChoices(quizNo, data.trivia[quizNo]);
 
@@ -28,22 +23,17 @@ $(document).ready(function() {
 
 });
 
-function checkAnswer(playerAnswer, answer) {
+function checkAnswer(playerAnswer, trivia) {
 
-    debugger;
     answered = true;
-    if (playerAnswer === data.trivia[quizNo].answer) {
+    if (playerAnswer === trivia.answer) {
         correct = true;
+    } else {
+        correct = false
     }
-    if (answered) {
-        $("#fun-fact").html("<p>" + data.trivia[quizNo].fact + "</p>")
+    if (answered === true) {
+        $("#fun-fact").html("<p>" + trivia.fact + "</p>")
     }
-
-}
-
-function setQuestion(quizNo, trivia) {
-
-    $("#question").html("<p>" + trivia.question + "</p>")
 
 }
 
@@ -61,20 +51,22 @@ function setChoices(quizNo, trivia) {
         var playerAnswer = $("input[name='" + quizNo + "']:checked").val();
         if (typeof playerAnswer !== 'undefined') {
             console.log(playerAnswer);
-            debugger;
+            // debugger;
             checkAnswer(playerAnswer, trivia)
         } else {
             console.log("Nope.")
-            debugger;
+                // debugger;
         }
 
     });
 
-    var form = $("<form>");
-    form.append(table);
-    form.append(button);
+    // var form = $("<form>");
+    // form.append(table);
+    // form.append(button);
 
-    $("#choices").append(form);
+    // $("#choices").append(form);
+
+    $("#choices").append(table).append(button);
 
 }
 
