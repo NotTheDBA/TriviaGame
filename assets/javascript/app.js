@@ -1,48 +1,72 @@
+var numCorrect = 0;
 $(document).ready(function() {
     var trivia, answers;
-    var answered = false;
-    var correct = null;
+    // var answered = false;
+    // var correct = null;
     var playerAnswer = -1;
     var quizNo = -1;
-    var queryurl = "assets/data/trivia.json";
 
+    var count = 0;
+
+    playButton(newGame = true);
+});
+
+function getQuestion() {
+    $("#answer").empty();
+    $("#fun-fact").empty();
+    var queryurl = "assets/data/trivia.json";
     $.ajax({
         url: queryurl,
         dataType: 'json',
         method: "GET"
     }).then(function(data) {
 
-        var count = Object.keys(data.trivia).length;
+        count = Object.keys(data.trivia).length;
         quizNo = 1; // TODO get random quiz item
 
         $("#question").html("<p>" + data.trivia[quizNo].question + "</p>")
 
-        setChoices(quizNo, data.trivia[quizNo]);
+        showQuestion(quizNo, data.trivia[quizNo]);
 
     });
 
-});
+}
+
+function playButton(newGame) {
+
+    var button = $("<button>");
+    if (newGame === true) {
+        button.text("Play");
+    } else {
+        button.text("Next");
+    }
+    button.on("click", function() {
+        getQuestion();
+    });
+
+    $("#answer").append(button);
+}
 
 function checkAnswer(playerAnswer, trivia) {
 
-    answered = true;
-    if (playerAnswer === trivia.answer) {
-        correct = true;
+    if (playerAnswer == trivia.answer) {
+        numCorrect++;
+        $("#answer").html("<p>Correct! '" + trivia.choices[trivia.answer] + "' is the answer!</p>")
     } else {
-        correct = false
+
+        $("#answer").html("<p>Sorry... the correct answer was:" + trivia.choices[trivia.answer] + "</p>")
     }
-    if (answered === true) {
-        $("#fun-fact").html("<p>" + trivia.fact + "</p>")
-    }
+    playButton(newGame = false);
+    $("#fun-fact").html("<p>" + trivia.fact + "</p>")
+
 
 }
 
 
-function setChoices(quizNo, trivia) {
-
+function showQuestion(quizNo, trivia) {
 
     var table = $("<table>");
-    table.append(makeChoices(quizNo, trivia.choices));
+    table.append(buildChoices(quizNo, trivia.choices));
 
     var button = $("<button>");
     button.text("Answer");
@@ -50,27 +74,15 @@ function setChoices(quizNo, trivia) {
     button.on("click", function() {
         var playerAnswer = $("input[name='" + quizNo + "']:checked").val();
         if (typeof playerAnswer !== 'undefined') {
-            console.log(playerAnswer);
-            // debugger;
             checkAnswer(playerAnswer, trivia)
-        } else {
-            console.log("Nope.")
-                // debugger;
         }
-
     });
 
-    // var form = $("<form>");
-    // form.append(table);
-    // form.append(button);
-
-    // $("#choices").append(form);
-
-    $("#choices").append(table).append(button);
+    $("#answer").empty().append(table).append(button);
 
 }
 
-function makeChoices(id, choices) {
+function buildChoices(id, choices) {
 
     var row = $("<tr>");
 

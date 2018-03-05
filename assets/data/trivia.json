@@ -1,4 +1,5 @@
-{    "trivia": {
+{
+    "trivia": {
         "1": {
             "question": "Which of these movies is NOT based on a board game?",
             "choices": ["Ouija",
@@ -7,7 +8,7 @@
                 "Clue"
             ],
             "answer": 1,
-            "fact": "Jumanju is about a boardgame of the same name, and there was a Jumanji game released in 1995 around the same time as the movie, but it the movies was actually based on a 1981 novel by Chris Van Allsburg."
+            "fact": "Jumanju the movie is about a boardgame, and there was a Jumanji game released in 1995 around the same time as the movie, but it the movie itself was actually based on the 1981 novel of the same name by Chris Van Allsburg."
         },
         "2": {
             "question": "Which of these is the cheapest group of properties in Monopoly?",
