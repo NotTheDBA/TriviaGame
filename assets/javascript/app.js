@@ -35,22 +35,23 @@ function setupGame() {
     count = -1;
     quizNo = -1;
     stopwatch.reset();
+    displayBanner("Get ready to play Trivia Quiz!");
     makePlayButton("Play");
 }
 
 function gameOver() {
     stopwatch.stop();
-    // $("#fun-fact").html("<p>SCORE: <em>" + Math.floor(numCorrect * 100 / count) + "</em></p>")
     var final = "<p>Number of questions: " + count + "</p>"
     final += "<p>Correct Answers: " + numCorrect + "</p>"
     final += "<p>Score: <em>" + Math.floor(numCorrect * 100 / count) + "</em></p>"
     $("#fun-fact").html(final)
-        //game over - re-set game
-        // setupGame();
+
+    //game over - re-set game
+    displayBanner("Ready to play again?");
+    makeRestartButton();
 }
 
 function clearScreen() {
-    // $("#go").empty();
     $("#answer").empty();
     $("#fun-fact").empty();
     $("#question").empty();
@@ -71,10 +72,14 @@ function showQuestion() {
     while (quizNo === -1 || seenQuestions.indexOf(quizNo) > -1) {
         quizNo = Math.floor(Math.random() * count)
     }
-    $("#question").html("<p>" + gameData.trivia[quizNo].question + "</p>")
+    displayBanner(gameData.trivia[quizNo].question);
     showChoices(quizNo, gameData.trivia[quizNo]);
 
     stopwatch.start();
+}
+
+function displayBanner(label) {
+    $("#question").html("<p>" + label + "</p>")
 }
 
 function makePlayButton(label) {
@@ -87,15 +92,26 @@ function makePlayButton(label) {
     $("#answer").empty().append(button);
 }
 
+function makeRestartButton() {
+
+    var button = $("<button>").text('New Game');
+    button.on("click", function() {
+        setupGame();
+    });
+
+    $("#answer").empty().append(button);
+}
+
 function checkAnswer(playerAnswer, trivia) {
 
     stopwatch.pause();
 
+    debugger;
     if (playerAnswer == trivia.answer) {
         numCorrect++;
-        $("#answer").html("<p>Correct! '" + trivia.choices[trivia.answer] + "' is the answer!</p>")
+        displayBanner("Correct! '" + trivia.choices[trivia.answer] + "' is the answer!");
     } else {
-        $("#answer").html("<p>Sorry... the correct answer was:" + trivia.choices[trivia.answer] + "</p>")
+        displayBanner("Sorry... the correct answer was:" + trivia.choices[trivia.answer]);
     }
 
     $("#fun-fact").html("<p>" + trivia.fact + "</p>")
@@ -116,8 +132,6 @@ function showChoices(triviaID, trivia) {
     });
 
     $("#answer").append(table)
-        // $("#go").empty().append(button);
-
     seenQuestions.push(triviaID);
 }
 
