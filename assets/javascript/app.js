@@ -126,7 +126,7 @@ function buildChoiceInput(id, choices) {
     var row = $("<tr>");
 
     for (i = 0; i < choices.length; i++) {
-        var triviaChoice = "<input type='radio' name='" + id + "' value='" + i + "'> " + choices[i] + "";
+        var triviaChoice = "<label><input type='radio' name='" + id + "' value='" + i + "'> " + choices[i] + "</label>";
 
         var item = $("<td>");
 
