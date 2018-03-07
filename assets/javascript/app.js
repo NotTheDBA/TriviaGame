@@ -50,7 +50,7 @@ function gameOver() {
 }
 
 function clearScreen() {
-    $("#go").empty();
+    // $("#go").empty();
     $("#answer").empty();
     $("#fun-fact").empty();
     $("#question").empty();
@@ -84,7 +84,7 @@ function makePlayButton(label) {
         showQuestion();
     });
 
-    $("#go").empty().append(button);
+    $("#answer").empty().append(button);
 }
 
 function checkAnswer(playerAnswer, trivia) {
@@ -116,7 +116,7 @@ function showChoices(triviaID, trivia) {
     });
 
     $("#answer").append(table)
-    $("#go").empty().append(button);
+        // $("#go").empty().append(button);
 
     seenQuestions.push(triviaID);
 }
