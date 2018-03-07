@@ -8,19 +8,15 @@
 
 // var clockRunning = false;
 $(document).ready(function() {
-    //game variables; values set later
-    // var triviaData, questionsCount, questionsSeen, correctGuesses;
 
-    // var playerAnswer = -1;
-    // var quizNo = -1;
-    getTrivia();
+    getTriviaData();
 
     setupGame();
 
 
 });
 
-function getTrivia() {
+function getTriviaData() {
     // Only needs to run once on load.
     var queryurl = "assets/data/trivia.json";
     $.ajax({
@@ -29,7 +25,7 @@ function getTrivia() {
         method: "GET"
     }).then(function(jsonData) {
         //puts the data in our global space
-        window.data = jsonData;
+        window.gameData = jsonData;
     });
 
 }
@@ -40,7 +36,7 @@ function setupGame() {
     count = -1;
     quizNo = -1;
     stopwatch.reset();
-    playButton("Play");
+    makePlayButton("Play");
 }
 
 function gameOver() {
@@ -51,60 +47,61 @@ function gameOver() {
 }
 
 function clearScreen() {
+    $("#go").empty();
     $("#answer").empty();
     $("#fun-fact").empty();
     $("#question").empty();
 }
 
-function getQuestion() {
+function showQuestion() {
     clearScreen();
     if (count === seenQuestions.length) {
         gameOver()
         return;
     }
     if (count === -1) {
-        count = Object.keys(data.trivia).length;
+        count = Object.keys(gameData.trivia).length;
     }
 
     //Possible optimization:  Find a way to eliminate repeated index values in the random choice.
     while (quizNo === -1 || seenQuestions.indexOf(quizNo) > -1) {
         quizNo = Math.floor(Math.random() * count)
     }
-    $("#question").html("<p>" + data.trivia[quizNo].question + "</p>")
-    showChoices(quizNo, data.trivia[quizNo]);
+    $("#question").html("<p>" + gameData.trivia[quizNo].question + "</p>")
+    showChoices(quizNo, gameData.trivia[quizNo]);
     stopwatch.start();
 
 }
 
-function playButton(label) {
+function makePlayButton(label) {
 
     var button = $("<button>").text(label);
     button.on("click", function() {
-        getQuestion();
+        showQuestion();
     });
 
-    $("#answer").append(button);
+    $("#go").empty().append(button);
 }
 
 function checkAnswer(playerAnswer, trivia) {
+
     stopwatch.stop();
+
     if (playerAnswer == trivia.answer) {
         numCorrect++;
         $("#answer").html("<p>Correct! '" + trivia.choices[trivia.answer] + "' is the answer!</p>")
     } else {
-
         $("#answer").html("<p>Sorry... the correct answer was:" + trivia.choices[trivia.answer] + "</p>")
-
     }
-    playButton("Next");
-    $("#fun-fact").html("<p>" + trivia.fact + "</p>")
 
+    $("#fun-fact").html("<p>" + trivia.fact + "</p>")
+    makePlayButton("Next");
 }
 
 function showChoices(triviaID, trivia) {
 
     var table = $("<table>");
-    table.append(buildChoices(triviaID, trivia.choices));
+    table.append(buildChoiceInput(triviaID, trivia.choices));
 
     var button = $("<button>").text("Answer");
     button.on("click", function() {
@@ -114,12 +111,13 @@ function showChoices(triviaID, trivia) {
         }
     });
 
-    $("#answer").append(table).append(button);
+    $("#answer").append(table)
+    $("#go").empty().append(button);
 
     seenQuestions.push(triviaID);
 }
 
-function buildChoices(id, choices) {
+function buildChoiceInput(id, choices) {
 
     var row = $("<tr>");
 
@@ -139,7 +137,7 @@ const SECONDS_BY_MILLISECOND = 1000;
 const MINUTES_BY_SECOND = 60;
 //  Our stopwatch object.
 var stopwatch = {
-    time: 0, //Two minute countdown 
+    time: 0,
     lap: 1,
     laptime: 0,
     clockRunning: false,
@@ -149,7 +147,7 @@ var stopwatch = {
 
         clockRunning = false;
 
-        // two minute warning
+        //Two minute countdown 
         stopwatch.time = 2 * MINUTES_BY_SECOND;
         stopwatch.displayTime(stopwatch.time);
     },

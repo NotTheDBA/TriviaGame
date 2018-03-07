@@ -9,17 +9,23 @@
 *************************/
 
 body,
-article,
+
+/* article, */
+
 .content {
     background: #777777;
     color: #ebebeb;
 }
 
 header,
-nav,
+
+/* nav, */
+
 section,
 aside,
-footer,
+
+/* footer, */
+
 div,
 h1,
 h2,
@@ -52,8 +58,12 @@ h3 {
 *************************/
 
 header,
-nav,
-footer,
+
+/* nav, */
+
+
+/* footer, */
+
 .content {
     width: 960px;
 }
@@ -82,8 +92,12 @@ aside {
 *************************/
 
 header,
-nav,
-footer,
+
+/* nav, */
+
+
+/* footer, */
+
 section,
 aside,
 .content {
@@ -91,11 +105,14 @@ aside,
 }
 
 header,
-nav,
-footer {
+
+/* nav, */
+
+
+/* footer {
     margin: 10px auto;
     padding: 35px 0;
-}
+} */
 
 .content {
     margin: 20px auto;
