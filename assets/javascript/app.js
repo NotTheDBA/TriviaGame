@@ -107,8 +107,8 @@ function showChoices(triviaID, trivia) {
     var table = $("<table>");
     table.append(buildChoiceInput(triviaID, trivia.choices));
 
-    var button = $("<button>").text("Answer");
-    button.on("click", function() {
+    // Adding click event listeners to all label elements
+    $(document).on("click", "label", function() {
         var playerAnswer = $("input[name='" + triviaID + "']:checked").val();
         if (typeof playerAnswer !== 'undefined') {
             checkAnswer(playerAnswer, trivia)
