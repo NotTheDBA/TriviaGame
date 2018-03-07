@@ -6,13 +6,12 @@
 //             "fact": "Freebies are fun!"
 //         }
 
-// var clockRunning = false;
 $(document).ready(function() {
 
     getTriviaData();
-
+    // this option allows bonus time to read the fun facts.
+    // stopwatch.allowPause = true;
     setupGame();
-
 
 });
 
@@ -40,10 +39,14 @@ function setupGame() {
 }
 
 function gameOver() {
-    console.log(numCorrect);
-    console.log(stopwatch.time);
-    //game over - re-set game
-    setupGame();
+    stopwatch.stop();
+    // $("#fun-fact").html("<p>SCORE: <em>" + Math.floor(numCorrect * 100 / count) + "</em></p>")
+    var final = "<p>Number of questions: " + count + "</p>"
+    final += "<p>Correct Answers: " + numCorrect + "</p>"
+    final += "<p>Score: <em>" + Math.floor(numCorrect * 100 / count) + "</em></p>"
+    $("#fun-fact").html(final)
+        //game over - re-set game
+        // setupGame();
 }
 
 function clearScreen() {
@@ -59,6 +62,7 @@ function showQuestion() {
         gameOver()
         return;
     }
+
     if (count === -1) {
         count = Object.keys(gameData.trivia).length;
     }
@@ -69,8 +73,8 @@ function showQuestion() {
     }
     $("#question").html("<p>" + gameData.trivia[quizNo].question + "</p>")
     showChoices(quizNo, gameData.trivia[quizNo]);
-    stopwatch.start();
 
+    stopwatch.start();
 }
 
 function makePlayButton(label) {
@@ -85,7 +89,7 @@ function makePlayButton(label) {
 
 function checkAnswer(playerAnswer, trivia) {
 
-    stopwatch.stop();
+    stopwatch.pause();
 
     if (playerAnswer == trivia.answer) {
         numCorrect++;
@@ -140,12 +144,14 @@ var stopwatch = {
     time: 0,
     lap: 1,
     laptime: 0,
+
+    allowPause: false,
     clockRunning: false,
     timerID: null,
 
     reset: function() {
 
-        clockRunning = false;
+        stopwatch.clockRunning = false;
 
         //Two minute countdown 
         stopwatch.time = 2 * MINUTES_BY_SECOND;
@@ -156,20 +162,31 @@ var stopwatch = {
 
         if (!stopwatch.clockRunning) {
             timerID = setInterval(stopwatch.count, 1 * SECONDS_BY_MILLISECOND);
+            stopwatch.clockRunning = true;
         }
-
-        clockRunning = true;
-        stopwatch.count();
     },
 
     stop: function() {
-        clearInterval(timerID);
+        if (stopwatch.clockRunning) {
+            clearInterval(timerID);
+            stopwatch.clockRunning = false;
+        }
+    },
+
+    pause: function() {
+        if (stopwatch.allowPause && stopwatch.clockRunning) {
+            clearInterval(timerID);
+            stopwatch.clockRunning = false;
+        }
     },
 
     count: function() {
         // decrement time
         stopwatch.time--;
         stopwatch.displayTime(stopwatch.time);
+        if (stopwatch.time === 0) {
+            gameOver();
+        }
     },
 
     displayTime: function(time) {
