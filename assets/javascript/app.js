@@ -96,7 +96,7 @@ function displayBanner(label, style) {
 
 function makePlayButton(label) {
 
-    var button = $("<button>").text(label);
+    var button = $("<button>").text(label).addClass("btn btn-primary btn-block");
     button.on("click", function() {
         showQuestion();
     });
@@ -106,7 +106,7 @@ function makePlayButton(label) {
 
 function makeRestartButton() {
 
-    var button = $("<button>").text('New Game');
+    var button = $("<button>").text('New Game').addClass("btn btn-primary btn-block");
     button.on("click", function() {
         setupGame();
     });
@@ -117,8 +117,6 @@ function makeRestartButton() {
 function checkAnswer(playerAnswer, trivia) {
 
     stopwatch.pause();
-
-    debugger;
     if (playerAnswer == trivia.answer) {
         numCorrect++;
         displayBanner("Correct! '" + trivia.choices[trivia.answer] + "' is the answer!", "success");
@@ -135,9 +133,18 @@ function showChoices(triviaID, trivia) {
     var table = $("<table>");
     table.append(buildChoiceInput(triviaID, trivia.choices));
 
-    // Adding click event listeners to all label elements
-    $(document).on("click", "label", function() {
-        var playerAnswer = $("input[name='" + triviaID + "']:checked").val();
+    // // Adding click event listeners to all label elements
+    // $(document).on("click", "label", function() {
+    //     var playerAnswer = $("input[name='" + triviaID + "']:checked").val();
+    //     if (typeof playerAnswer !== 'undefined') {
+    //         checkAnswer(playerAnswer, trivia)
+    //     }
+    // });
+
+    // Adding click event listeners to all choice button elements
+    $(document).on("click", ".choices", function() {
+        // console.log($(this).val())
+        var playerAnswer = $(this).val()
         if (typeof playerAnswer !== 'undefined') {
             checkAnswer(playerAnswer, trivia)
         }
@@ -152,7 +159,9 @@ function buildChoiceInput(id, choices) {
     var tBody = $("<tbody>");
 
     for (i = 0; i < choices.length; i++) {
-        var triviaChoice = "<label><input type='radio' name='" + id + "' value='" + i + "'> " + choices[i] + "</label>";
+        // var triviaChoice = "<label class='btn btn-block'><input type='radio' name='" + id + "' value='" + i + "'> " + choices[i] + "</label>";
+
+        var triviaChoice = "<button type='button' class='choices btn btn-primary btn-block ' name='" + id + "' value='" + i + "'> " + choices[i] + "</button>";
 
         var row = $("<tr>");
         var item = $("<td>");

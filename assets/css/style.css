@@ -80,12 +80,14 @@ aside {
 }
 
 .content {
-    height: 300px;
+    /* height: 300px; */
+    height: fit-content;
+    min-height: 300px;
 }
 
 section,
 aside {
-    /* height: 245px; */
+    min-height: 300px;
     height: fit-content;
 }
 
