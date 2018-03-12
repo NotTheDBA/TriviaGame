@@ -41,7 +41,7 @@
             "fact": "The property colors are Dark Purple, Light Blue, Orange, Red, Yellow, Green, Dark Blue, and the last group... this group originally Maroon when the game was created, then changed to Light Purple, and most recently to Pink."
         },
         "6": {
-            "question": "How many points is an X worth in scrabble? (Ans: 8)?",
+            "question": "How many points is an X worth in scrabble?",
             "choices": ["4", "6", "8", "10"],
             "answer": 2,
             "fact": "J and X are both worth 8 points in Scrabble.  Only Q and Z are worth 10."
