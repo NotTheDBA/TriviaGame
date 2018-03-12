@@ -121,12 +121,12 @@ function checkAnswer(playerAnswer, trivia) {
     debugger;
     if (playerAnswer == trivia.answer) {
         numCorrect++;
-        displayBanner("Correct! '" + trivia.choices[trivia.answer] + "' is the answer!", "sucess");
+        displayBanner("Correct! '" + trivia.choices[trivia.answer] + "' is the answer!", "success");
     } else {
         displayBanner("Sorry... the correct answer was: " + trivia.choices[trivia.answer], "failure");
     }
 
-    $("#fun-fact").html("<p>" + trivia.fact + "</p>")
+    $("#fun-fact").html("<p><h5>" + trivia.fact + "</h5></p>")
     makePlayButton("Next");
 }
 
