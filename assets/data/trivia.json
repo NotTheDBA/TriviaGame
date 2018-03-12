@@ -33,6 +33,48 @@
             "choices": ["Seasons", "7 Wonders", "Dominion", "Button Men"],
             "answer": 0,
             "fact": "In Seasons, the first player rolls a number of dice.  Each player in turn then selects one of the rolled values, and passes the rest of the dice along to the next player.  This is known as dice drafting."
+        },
+        "5": {
+            "question": "How many color groups are there in monopoly?",
+            "choices": ["6", "8", "10", "12"],
+            "answer": 1,
+            "fact": "The property colors are Dark Purple, Light Blue, Orange, Red, Yellow, Green, Dark Blue, and the last group... this group originally Maroon when the game was created, then changed to Light Purple, and most recently to Pink."
+        },
+        "6": {
+            "question": "How many points is an X worth in scrabble? (Ans: 8)?",
+            "choices": ["4", "6", "8", "10"],
+            "answer": 2,
+            "fact": "J and X are both worth 8 points in Scrabble.  Only Q and Z are worth 10."
+        },
+        "7": {
+            "question": "What is the British name for the game Chutes and Ladders?",
+            "choices": ["Chutes and Stairs", "Slides and Ladders", "Chutes and Baskets", "Snakes & Ladders"],
+            "answer": 3,
+            "fact": "Nothing here."
+        },
+        "8": {
+            "question": "What is Parcheesi's nation of origin?",
+            "choices": ["Iran", "Turkey", "India", "Greece"],
+            "answer": 2,
+            "fact": "Nothing here."
+        },
+        "9": {
+            "question": "What is the maximum number of players in Chinese Checkers?",
+            "choices": ["6", "2", "8", "5"],
+            "answer": 0,
+            "fact": "The original game, Pachisi, is a cross and circle board game that originated in medieval India, which has been described as the 'national game of India'."
+        },
+        "10": {
+            "question": "Which kind of game makes my wife want to run away?",
+            "choices": ["Really long ones", "Really thinky ones", "Really futzy ones", "All of the above"],
+            "answer": 3,
+            "fact": "She really does enjoy boardgames.  She's not just humoring me."
+        },
+        "11": {
+            "question": "Which of these is not a 19th Century boardgame?",
+            "choices": ["Science in Sport or the Pleasures of Astronomy, A New Instructive Pastime", "Tzolk'in, The Mayan Calendar", "The Crystal Palace Game, A Voyage Round the World, An entertaining excursion in search of knowledge, whereby Geography is Made Easy", "The Wonders of the World", "The New Game of the Elephant and Castle, or Travelling in Asia"],
+            "answer": 1,
+            "fact": "'Tzolk'in, The Mayan Calendar' was published in 2012."
         }
     }
 }
