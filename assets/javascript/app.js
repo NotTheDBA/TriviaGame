@@ -35,6 +35,7 @@ function setupGame() {
     count = -1;
     quizNo = -1;
     stopwatch.reset();
+    clearScreen();
     displayBanner("Get ready to play Trivia Quiz!");
     makePlayButton("Play");
 }
@@ -44,7 +45,7 @@ function gameOver() {
     var final = "<p>Number of questions: " + count + "</p>"
     final += "<p>Correct Answers: " + numCorrect + "</p>"
     final += "<p>Score: <em>" + Math.floor(numCorrect * 100 / count) + "</em></p>"
-    $("#fun-fact").html(final)
+    displayFact(final);
 
     //game over - re-set game
     displayBanner("Ready to play again?");
@@ -94,6 +95,10 @@ function displayBanner(label, style) {
     $("#question").html(p);
 }
 
+function displayFact(label) {
+    $("#fun-fact").html("<h5>" + label + "</h5>")
+}
+
 function makePlayButton(label) {
 
     var button = $("<button>").text(label).addClass("btn btn-primary btn-block");
@@ -124,7 +129,7 @@ function checkAnswer(playerAnswer, trivia) {
         displayBanner("Sorry... the correct answer was: " + trivia.choices[trivia.answer], "failure");
     }
 
-    $("#fun-fact").html("<p><h5>" + trivia.fact + "</h5></p>")
+    displayFact(trivia.fact)
     makePlayButton("Next");
 }
 
@@ -132,14 +137,6 @@ function showChoices(triviaID, trivia) {
 
     var table = $("<table>");
     table.append(buildChoiceInput(triviaID, trivia.choices));
-
-    // // Adding click event listeners to all label elements
-    // $(document).on("click", "label", function() {
-    //     var playerAnswer = $("input[name='" + triviaID + "']:checked").val();
-    //     if (typeof playerAnswer !== 'undefined') {
-    //         checkAnswer(playerAnswer, trivia)
-    //     }
-    // });
 
     // Adding click event listeners to all choice button elements
     $(document).on("click", ".choices", function() {
@@ -159,7 +156,6 @@ function buildChoiceInput(id, choices) {
     var tBody = $("<tbody>");
 
     for (i = 0; i < choices.length; i++) {
-        // var triviaChoice = "<label class='btn btn-block'><input type='radio' name='" + id + "' value='" + i + "'> " + choices[i] + "</label>";
 
         var triviaChoice = "<button type='button' class='choices btn btn-primary btn-block ' name='" + id + "' value='" + i + "'> " + choices[i] + "</button>";
 
@@ -169,7 +165,6 @@ function buildChoiceInput(id, choices) {
         item.append(triviaChoice);
         row.append(item);
         tBody.append(row);
-
     }
 
     return tBody;

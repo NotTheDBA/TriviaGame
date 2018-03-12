@@ -1,18 +1,6 @@
 /************************
-    Clear defaults.
-*************************/
-
-
-/* @import 'reset.css'; */
-
-
-/************************
     Colors
 *************************/
-
-body,
-
-/* article, */
 
 .content {
     background: #777777;
@@ -25,34 +13,11 @@ div,
 h1,
 h2,
 h3,
+h4,
+h5,
 p {
     background: #ebebeb;
     color: #777777;
-}
-
-
-/************************
-    Fonts
-*************************/
-
-body {
-    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
-    font-size: 18px;
-}
-
-h1,
-h2,
-h3,
-{
-    font-size: 18px;
-    display: inline;
-}
-
-em {
-    font-size: 24px;
-    font-weight: bold;
-    display: inline;
-    color: maroon;
 }
 
 
@@ -61,12 +26,6 @@ em {
 *************************/
 
 header,
-
-/* nav, */
-
-
-/* footer, */
-
 .content {
     width: 960px;
 }
@@ -83,15 +42,10 @@ aside {
     width: 405px;
 }
 
-.content {
-    /* height: 300px; */
-    height: fit-content;
-    min-height: 300px;
-}
-
+.content,
 section,
 aside {
-    min-height: 300px;
+    min-height: 500px;
     height: fit-content;
 }
 
@@ -101,12 +55,6 @@ aside {
 *************************/
 
 header,
-
-/* nav, */
-
-
-/* footer, */
-
 section,
 aside,
 .content {
@@ -114,15 +62,6 @@ aside,
 }
 
 header,
-
-/* nav, */
-
-
-/* footer {
-    margin: 10px auto;
-    padding: 35px 0;
-} */
-
 .content {
     margin: 20px auto;
     padding: 0;
