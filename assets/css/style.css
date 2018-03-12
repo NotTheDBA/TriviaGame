@@ -75,6 +75,10 @@ section {
     width: 495px;
 }
 
+table {
+    width: 100%;
+}
+
 aside {
     width: 405px;
 }

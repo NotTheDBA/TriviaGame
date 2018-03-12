@@ -72,7 +72,7 @@
         },
         "11": {
             "question": "Which of these is not a 19th Century boardgame?",
-            "choices": ["Science in Sport or the Pleasures of Astronomy, A New Instructive Pastime", "Tzolk'in, The Mayan Calendar", "The Crystal Palace Game, A Voyage Round the World, An entertaining excursion in search of knowledge, whereby Geography is Made Easy", "The Wonders of the World", "The New Game of the Elephant and Castle, or Travelling in Asia"],
+            "choices": ["Science in Sport or the Pleasures of Astronomy,<br>A New Instructive Pastime", "Tzolk'in, The Mayan Calendar", "The Crystal Palace Game, A Voyage Round the World,<br>An entertaining excursion in search of knowledge,<br>whereby Geography is Made Easy", "The Wonders of the World", "The New Game of the Elephant and Castle,<br>or Travelling in Asia"],
             "answer": 1,
             "fact": "'Tzolk'in, The Mayan Calendar' was published in 2012."
         }
