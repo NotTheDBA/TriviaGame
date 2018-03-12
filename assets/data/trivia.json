@@ -56,13 +56,13 @@
             "question": "What is Parcheesi's nation of origin?",
             "choices": ["Iran", "Turkey", "India", "Greece"],
             "answer": 2,
-            "fact": "Nothing here."
+            "fact": "The original game, Pachisi, is a cross and circle board game that originated in medieval India, which has been described as the 'national game of India'."
         },
         "9": {
             "question": "What is the maximum number of players in Chinese Checkers?",
             "choices": ["6", "2", "8", "5"],
             "answer": 0,
-            "fact": "The original game, Pachisi, is a cross and circle board game that originated in medieval India, which has been described as the 'national game of India'."
+            "fact": "Nothing here."
         },
         "10": {
             "question": "Which kind of game makes my wife want to run away?",

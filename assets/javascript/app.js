@@ -32,7 +32,7 @@ function getTriviaData() {
 function setupGame() {
     seenQuestions = [];
     numCorrect = 0;
-    console.log(numCorrect);
+
     count = -1;
     quizNo = -1;
     stopwatch.reset();
@@ -43,7 +43,7 @@ function setupGame() {
 
 function gameOver() {
     stopwatch.stop();
-    console.log(numCorrect);
+
     var final = "<p>Number of questions: " + count + "</p>"
     final += "<p>Correct Answers: " + numCorrect + "</p>"
     final += "<p>Score: <em>" + Math.floor(numCorrect * 100 / count) + "</em></p>"
@@ -124,10 +124,10 @@ function makeRestartButton() {
 function checkAnswer(playerAnswer, trivia) {
 
     stopwatch.pause();
-    console.log(playerAnswer);
-    console.log(trivia.answer);
-    if (playerAnswer === trivia.answer) {
-        numCorrect++;
+
+    if (parseInt(playerAnswer) == trivia.answer) {
+        console.log(numCorrect);
+        numCorrect += 1;
         console.log(numCorrect);
 
         displayBanner("Correct! '" + trivia.choices[trivia.answer] + "' is the answer!", "success");
@@ -135,7 +135,7 @@ function checkAnswer(playerAnswer, trivia) {
         displayBanner("Sorry... the correct answer was: " + trivia.choices[trivia.answer], "failure");
     }
 
-    displayFact(trivia.fact)
+    displayFact(trivia.fact);
     makePlayButton("Next");
 }
 
@@ -145,8 +145,7 @@ function showChoices(triviaID, trivia) {
     table.append(buildChoiceInput(triviaID, trivia.choices));
 
     // Adding click event listeners to all choice button elements
-    $(document).on("click", ".choices", function() {
-        // console.log($(this).val())
+    $(document).off("click").on("click", ".choices", function() {
         var playerAnswer = $(this).val()
         if (typeof playerAnswer !== 'undefined') {
             checkAnswer(playerAnswer, trivia)
