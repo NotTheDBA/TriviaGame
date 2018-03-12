@@ -78,8 +78,20 @@ function showQuestion() {
     stopwatch.start();
 }
 
-function displayBanner(label) {
-    $("#question").html("<p>" + label + "</p>")
+function displayBanner(label, style) {
+    var p = $("<p>").text(label);
+    switch (style) {
+        case "failure":
+            p.addClass("text-danger")
+            break;
+        case "success":
+            p.addClass("text-success")
+            break;
+        default:
+            p.addClass("text-primary")
+
+    }
+    $("#question").html(p);
 }
 
 function makePlayButton(label) {
@@ -109,9 +121,9 @@ function checkAnswer(playerAnswer, trivia) {
     debugger;
     if (playerAnswer == trivia.answer) {
         numCorrect++;
-        displayBanner("Correct! '" + trivia.choices[trivia.answer] + "' is the answer!");
+        displayBanner("Correct! '" + trivia.choices[trivia.answer] + "' is the answer!", "sucess");
     } else {
-        displayBanner("Sorry... the correct answer was:" + trivia.choices[trivia.answer]);
+        displayBanner("Sorry... the correct answer was: " + trivia.choices[trivia.answer], "failure");
     }
 
     $("#fun-fact").html("<p>" + trivia.fact + "</p>")
@@ -137,18 +149,21 @@ function showChoices(triviaID, trivia) {
 
 function buildChoiceInput(id, choices) {
 
-    var row = $("<tr>");
+    var tBody = $("<tbody>");
 
     for (i = 0; i < choices.length; i++) {
         var triviaChoice = "<label><input type='radio' name='" + id + "' value='" + i + "'> " + choices[i] + "</label>";
 
+        var row = $("<tr>");
         var item = $("<td>");
 
         item.append(triviaChoice);
         row.append(item);
+        tBody.append(row);
+
     }
 
-    return row;
+    return tBody;
 }
 
 const SECONDS_BY_MILLISECOND = 1000;

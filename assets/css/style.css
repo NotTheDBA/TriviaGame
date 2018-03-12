@@ -2,7 +2,9 @@
     Clear defaults.
 *************************/
 
-@import 'reset.css';
+
+/* @import 'reset.css'; */
+
 
 /************************
     Colors
@@ -17,17 +19,8 @@ body,
     color: #ebebeb;
 }
 
-
-/* header, */
-
-
-/* nav, */
-
 section,
 aside,
-
-/* footer, */
-
 div,
 h1,
 h2,
@@ -67,9 +60,7 @@ em {
     Sizing
 *************************/
 
-
-/* header, */
-
+header,
 
 /* nav, */
 
@@ -103,9 +94,7 @@ aside {
     Layout
 *************************/
 
-
-/* header, */
-
+header,
 
 /* nav, */
 
@@ -118,9 +107,7 @@ aside,
     text-align: center;
 }
 
-
-/* header, */
-
+header,
 
 /* nav, */
 
