@@ -32,6 +32,7 @@ function getTriviaData() {
 function setupGame() {
     seenQuestions = [];
     numCorrect = 0;
+    console.log(numCorrect);
     count = -1;
     quizNo = -1;
     stopwatch.reset();
@@ -42,6 +43,7 @@ function setupGame() {
 
 function gameOver() {
     stopwatch.stop();
+    console.log(numCorrect);
     var final = "<p>Number of questions: " + count + "</p>"
     final += "<p>Correct Answers: " + numCorrect + "</p>"
     final += "<p>Score: <em>" + Math.floor(numCorrect * 100 / count) + "</em></p>"
@@ -122,8 +124,12 @@ function makeRestartButton() {
 function checkAnswer(playerAnswer, trivia) {
 
     stopwatch.pause();
-    if (playerAnswer == trivia.answer) {
+    console.log(playerAnswer);
+    console.log(trivia.answer);
+    if (playerAnswer === trivia.answer) {
         numCorrect++;
+        console.log(numCorrect);
+
         displayBanner("Correct! '" + trivia.choices[trivia.answer] + "' is the answer!", "success");
     } else {
         displayBanner("Sorry... the correct answer was: " + trivia.choices[trivia.answer], "failure");

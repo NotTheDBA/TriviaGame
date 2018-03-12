@@ -2,8 +2,7 @@
 This is a jQuery/JavaScript based timed trivia game.  Trivia data is stored in a JSON file.
 
 ## TODO:  
-* Remove HTML template placeholder junk.
-* Style HTML page.
+* Fix bug with correct answer count on resets...
 
 ## Future enhancement ideas
 * Auto-advance to next question/eliminate 'Next' buton.
